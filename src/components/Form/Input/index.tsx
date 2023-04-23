@@ -1,13 +1,30 @@
-import { StyledInputContainer } from '../../../styles/form';
-import { StyledParagraph } from '../../../styles/typography';
+import { StyledInputContainer } from "../../../styles/form";
+import { StyledParagraph } from "../../../styles/typography";
+import { UseFormRegisterReturn } from "react-hook-form";
 
-const Input = ({ id }) => (
+interface IInputProps {
+  id: string;
+  registerValue: UseFormRegisterReturn<any>;
+  placeholder?: string | undefined;
+  errorMessage: any;
+  type?: React.HTMLInputTypeAttribute | undefined;
+}
+
+const Input = ({
+  id,
+  registerValue,
+  placeholder,
+  errorMessage,
+  type,
+}: IInputProps) => (
   <div>
     <StyledInputContainer>
-      <input type='text' id={id} placeholder=' ' />
-      <label htmlFor={id}>Teste</label>
+      <input id={id} {...registerValue} placeholder={placeholder} type={type} />
+      <label htmlFor={id}></label>
     </StyledInputContainer>
-    <StyledParagraph fontColor='red'>Erro</StyledParagraph>
+    {errorMessage && (
+      <StyledParagraph fontColor="red">{errorMessage}</StyledParagraph>
+    )}
   </div>
 );
 
