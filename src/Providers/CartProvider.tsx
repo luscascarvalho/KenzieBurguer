@@ -59,7 +59,8 @@ export const CartProvider = ({ children }: ICartProvider) => {
 
   const checking = (product: IProducts) => {
     if (!addCart.some((checkProduct) => checkProduct.id === product.id)) {
-      toast.warning("e ai doidão ta tirando a firma é");
+      toast.success("Produto adicionado ao carrinho!");
+
       setAddCart([...addCart, product]);
     } else {
       toast.error("Produto já no carrinho.");
