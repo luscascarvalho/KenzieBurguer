@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { api } from "../Services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -66,7 +66,6 @@ export const UserProvider = ({ children }: IUserProvider) => {
 
       navigate("/shop");
     } catch (error) {
-      console.log(error);
       toast.error("Ops! Algo deu errado.");
     }
   };
@@ -82,9 +81,18 @@ export const UserProvider = ({ children }: IUserProvider) => {
       });
       setUser(response.data);
     } catch (error) {
-      console.log(error);
+      toast.error("Ops, algo deu errado.");
     }
   };
+
+  useEffect(() => {
+    const userId = localStorage.getItem("user:userID");
+    if (userId) {
+      autologin(userId);
+
+      navigate("/shop");
+    }
+  }, []);
 
   const handleLogout = () => {
     setUser({});
